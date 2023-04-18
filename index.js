@@ -1,12 +1,18 @@
 const express = require('express');
+const app = express();
 const http = require('http');
 const WebSocket = require('ws');
 const port = 6060;
-const server = http.createServer(express);
+const server = http.createServer(app);
 const wss = new WebSocket.Server({ server })
 // const wss = new WebSocket.Server({ port: 6060 }, () => {
 //     console.log('server started');
 // });
+
+app.get('/', (req, res) => {
+    res.write('<h1>Server is listening on port 6060!</h1>')
+    res.end()
+})
 
 wss.on('connection', (ws) => {
     console.log('client connected');
